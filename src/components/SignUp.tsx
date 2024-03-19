@@ -7,7 +7,7 @@ import {ModeToggle} from "@/components/ModeToggle";
 
 export default function SignUp() {
 
-  const [idCheck, setIdCheck] = useState<boolean>(false);
+  const [idCheck, setIdCheck] = useState<boolean>(true);
   const [result, setResult] = useState<object>({
     email: '',
     phone: '',
@@ -18,9 +18,6 @@ export default function SignUp() {
   })
 
   useEffect(() => {
-    if (result.password !== result.confirmPassword) {
-        alert('비밀번호가 일치하지 않습니다.');
-      }
     if (result.password !== '') {
       alert(JSON.stringify(result));
     }
