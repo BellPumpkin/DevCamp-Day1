@@ -5,10 +5,19 @@ import {useEffect, useState} from "react";
 import PasswordInfo from "@/components/PasswordInfo";
 import {ModeToggle} from "@/components/ModeToggle";
 
+export type ResultType = {
+  email: string;
+  phone: string;
+  username: string;
+  role: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export default function SignUp() {
 
   const [idCheck, setIdCheck] = useState<boolean>(false);
-  const [result, setResult] = useState<object>({
+  const [result, setResult] = useState<ResultType>({
     email: '',
     phone: '',
     username: '',

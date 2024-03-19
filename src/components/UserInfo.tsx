@@ -10,10 +10,11 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/
 import {Input} from "@/components/ui/input"
 import {useEffect} from "react";
 import WarningText from "@/components/WarningText";
+import {ResultType} from "@/components/SignUp";
 
 type Props = {
-  setIdCheck: () => React.Dispatch<React.SetStateAction<boolean>>
-  setResult: () => React.Dispatch<React.SetStateAction<object>>
+  setIdCheck: React.Dispatch<React.SetStateAction<boolean>>
+  setResult: React.Dispatch<React.SetStateAction<ResultType>>
 }
 
 const phoneRegex = new RegExp(/^010([0-9]{4})([0-9]{4})$/);

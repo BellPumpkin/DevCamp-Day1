@@ -8,12 +8,13 @@ import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import WarningText from "@/components/WarningText";
+import {ResultType} from "@/components/SignUp";
 
 const passwordRegex = new RegExp(/^(?=.*?[A-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
 
 type Props = {
-  setIdCheck: () => React.Dispatch<React.SetStateAction<boolean>>
-  setResult: () => React.Dispatch<React.SetStateAction<object>>
+  setIdCheck: React.Dispatch<React.SetStateAction<boolean>>
+  setResult: React.Dispatch<React.SetStateAction<ResultType>>
 }
 
 const formSchema =
