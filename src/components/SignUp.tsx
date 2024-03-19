@@ -7,7 +7,7 @@ import {ModeToggle} from "@/components/ModeToggle";
 
 export default function SignUp() {
 
-  const [idCheck, setIdCheck] = useState<boolean>(true);
+  const [idCheck, setIdCheck] = useState<boolean>(false);
   const [result, setResult] = useState<object>({
     email: '',
     phone: '',
