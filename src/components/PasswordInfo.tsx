@@ -21,8 +21,8 @@ const formSchema =
   z.object({
     password:
       z.string()
-      .min(6, {message: "비밀번호는 최소 6자리 이상이어야 합니다."})
-      .regex(passwordRegex, {message: '비밀번호는 최소 6자리 이상, 영문, 숫자, 특수문자를 포함해야 합니다.'}), // 11자리 숫자
+        .min(6, {message: "비밀번호는 최소 6자리 이상이어야 합니다."})
+        .regex(passwordRegex, {message: '비밀번호는 최소 6자리 이상, 영문, 숫자, 특수문자를 포함해야 합니다.'}), // 11자리 숫자
     confirmPassword:
       z.string()
         .min(6, {message: "비밀번호는 최소 6자리 이상이어야 합니다."})
@@ -66,10 +66,12 @@ export default function PasswordInfo({setIdCheck, setResult}: Props) {
           confirmPassword: values.confirmPassword
         }
       ));
+      return;
     }
     else {
       alert("일치하지 않음");
     }
+
   }
 
   let errors = form.formState.errors;
@@ -83,30 +85,39 @@ export default function PasswordInfo({setIdCheck, setResult}: Props) {
               control={form.control}
               name="password"
               render={({field}) => (
-                <FormItem className='w-full h-full flex flex-col justify-between'>
-                  <div className='flex flex-col gap-4'>
-                    <FormLabel>비밀번호</FormLabel>
-                    <FormControl>
-                      <Input type="password" {...form.register("password")} />
-                    </FormControl>
-                    {
-                      errors.password?.message && <WarningText>{errors.password.message}</WarningText>
-                    }
-                    <FormLabel>비밀번호 확인</FormLabel>
-                    <FormControl>
-                      <Input type="password" {...form.register("confirmPassword")} />
-                    </FormControl>
-                    {
-                      errors.confirmPassword?.message && <WarningText>{errors.confirmPassword.message}</WarningText>
-                    }
-                  </div>
-                  <div className='flex gap-6'>
-                    <Button type="submit">계정 동록하기</Button>
-                    <button className='text-sm h-10 px-4 py-2 rounded-md hover:bg-neutral-200' onClick={onBackHandler} type="submit">이전 단계로</button>
-                  </div>
+                <FormItem className='flex flex-col'>
+                  <FormLabel>비밀번호</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field}/>
+                  </FormControl>
+                  {
+                    errors.password?.message && <WarningText>{errors.password.message}</WarningText>
+                  }
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({field}) => (
+                <FormItem className='flex flex-col'>
+                  <FormLabel>비밀번호 확인</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  {
+                    errors.confirmPassword?.message && <WarningText>{errors.confirmPassword.message}</WarningText>
+                  }
+                </FormItem>
+              )}
+            />
+            <div className='flex gap-6'>
+              <Button type="submit">계정 동록하기</Button>
+              <button className='text-sm h-10 px-4 py-2 rounded-md hover:bg-neutral-200' onClick={onBackHandler}
+                      type="button">이전 단계로
+              </button>
+            </div>
           </form>
         </Form>
       </div>
