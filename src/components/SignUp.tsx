@@ -47,7 +47,7 @@ export default function SignUp() {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
         {
           idCheck ? <PasswordInfo setIdCheck={setIdCheck} form={form}/> :
             <UserInfo setIdCheck={setIdCheck} form={form}/>

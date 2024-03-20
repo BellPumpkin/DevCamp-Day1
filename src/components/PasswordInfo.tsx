@@ -26,7 +26,7 @@ export default function PasswordInfo({setIdCheck, form}: Props) {
         control={form.control}
         name="password"
         render={({field}) => (
-          <FormItem className='flex flex-col'>
+          <FormItem className='flex flex-col gap-2'>
             <FormLabel>비밀번호</FormLabel>
             <FormControl>
               <Input type="password" {...field}/>
@@ -42,7 +42,7 @@ export default function PasswordInfo({setIdCheck, form}: Props) {
         control={form.control}
         name="confirmPassword"
         render={({field}) => (
-          <FormItem className='flex flex-col'>
+          <FormItem className='flex flex-col gap-2'>
             <FormLabel>비밀번호 확인</FormLabel>
             <FormControl>
               <Input type="password" {...field} />

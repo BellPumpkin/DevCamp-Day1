@@ -40,7 +40,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
         control={form.control}
         name="username"
         render={({field}) => (
-          <FormItem className='flex flex-col'>
+          <FormItem className='flex flex-col gap-2'>
             <FormLabel>이름</FormLabel>
             <FormControl>
               <Input placeholder="홍길동" {...field} />
@@ -55,7 +55,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
         control={form.control}
         name="email"
         render={({field}) => (
-          <FormItem className='flex flex-col'>
+          <FormItem className='flex flex-col gap-2'>
             <FormLabel>이메일</FormLabel>
             <FormControl>
               <Input placeholder="hello@sparta-devcamp.com" {...field} />
@@ -70,7 +70,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
         control={form.control}
         name="phone"
         render={({field}) => (
-          <FormItem className='flex flex-col'>
+          <FormItem className='flex flex-col gap-2'>
             <FormLabel>연락처</FormLabel>
             <FormControl>
               <Input placeholder="01000000000" {...field} />
@@ -85,7 +85,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
         control={form.control}
         name="role"
         render={({field}) => (
-          <FormItem className='flex flex-col'>
+          <FormItem className='flex flex-col gap-[5px]'>
             <FormLabel>역할</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
@@ -99,10 +99,10 @@ export default function UserInfo({setIdCheck, form}: Props) {
                   <SelectItem value="user">일반사용자</SelectItem>
                 </SelectContent>
               </div>
+                {
+                  errors.role && <WarningText>{"역할을 선택해주세요."}</WarningText>
+                }
             </Select>
-            {
-              errors.role && <WarningText>역할을 선택해주세요.</WarningText>
-            }
           </FormItem>
         )}
       />
