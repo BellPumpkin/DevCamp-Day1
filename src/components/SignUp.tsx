@@ -1,9 +1,13 @@
 "use client"
 
 import UserInfo from "@/components/UserInfo";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import PasswordInfo from "@/components/PasswordInfo";
-import {ModeToggle} from "@/components/ModeToggle";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {formSchema} from "@/validators/auth";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {Form} from "@/components/ui/form";
 
 export type ResultType = {
   email: string;
@@ -17,37 +21,40 @@ export type ResultType = {
 export default function SignUp() {
 
   const [idCheck, setIdCheck] = useState<boolean>(false);
-  const [result, setResult] = useState<ResultType>({
-    email: '',
-    phone: '',
-    username: '',
-    role: '',
-    password: '',
-    confirmPassword: ''
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      phone: "",
+      role: "",
+      password: "",
+      confirmPassword: "",
+    },
   })
 
-  useEffect(() => {
-    if (result.password !== '') {
-      alert(JSON.stringify(result));
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    if (values.password === values.confirmPassword) {
+      alert(JSON.stringify(values, null, 4))
+      return;
     }
-  }, [result]);
+    else {
+      alert("일치하지 않음");
+    }
+  }
 
   return (
-    <section className='flex w-full h-screen justify-center items-center'>
-      <div className='absolute top-9 right-9'>
-        <ModeToggle/>
-      </div>
-      <div className='w-[550px] h-[600px] border border-neutral-300 rounded-md p-5'>
-        <div className={'flex flex-col mb-5'}>
-          <h3 className='text-2xl font-bold'>계정을 생성합니다.</h3>
-          <p className='text-sm text-slate-600'>필수 정보를 입력해볼게요.</p>
-        </div>
+    <div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-8">
         {
-          idCheck ? <PasswordInfo setIdCheck={setIdCheck} setResult={setResult}/> :
-            <UserInfo setIdCheck={setIdCheck} setResult={setResult}/>
+          idCheck ? <PasswordInfo setIdCheck={setIdCheck} form={form}/> :
+            <UserInfo setIdCheck={setIdCheck} form={form}/>
         }
-      </div>
-    </section>
+        </form>
+      </Form>
+    </div>
   )
 }
 
