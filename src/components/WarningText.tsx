@@ -1,4 +1,4 @@
-export default function WarningText({children}) {
+export default function WarningText({children}: {children: string}) {
 
   return (
     <>
