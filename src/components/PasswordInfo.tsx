@@ -29,7 +29,7 @@ export default function PasswordInfo({setIdCheck, form}: Props) {
           <FormItem className='flex flex-col gap-2'>
             <FormLabel>비밀번호</FormLabel>
             <FormControl>
-              <Input type="password" {...field}/>
+              <Input type="password" autoComplete="new-password" {...field}/>
             </FormControl>
             {
               errors.password?.message && <WarningText>{errors.password.message}</WarningText>
@@ -45,7 +45,7 @@ export default function PasswordInfo({setIdCheck, form}: Props) {
           <FormItem className='flex flex-col gap-2'>
             <FormLabel>비밀번호 확인</FormLabel>
             <FormControl>
-              <Input type="password" {...field} />
+              <Input type="password" autoComplete="new-password" {...field} />
             </FormControl>
             {
               errors.confirmPassword?.message && <WarningText>{errors.confirmPassword.message}</WarningText>
