@@ -47,7 +47,7 @@ export default function loginPage() {
                     render={({field}) => (
                       <FormItem className='flex flex-col gap-2'>
                         <FormControl>
-                          <Input className="h-[50px] hover:cursor-pointer" placeholder="아이디" {...field} />
+                          <Input className="h-[50px] hover:cursor-pointer" placeholder="아이디" autoComplete={"off"} {...field} />
                         </FormControl>
                       </FormItem>
                     )}
