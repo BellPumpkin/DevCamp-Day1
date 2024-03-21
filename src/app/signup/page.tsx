@@ -18,7 +18,7 @@ export type ResultType = {
   confirmPassword: string;
 }
 
-export default function SignUp() {
+export default function signupPage() {
 
   const [idCheck, setIdCheck] = useState<boolean>(false);
 
@@ -48,10 +48,10 @@ export default function SignUp() {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        {
-          idCheck ? <PasswordInfo setIdCheck={setIdCheck} form={form}/> :
-            <UserInfo setIdCheck={setIdCheck} form={form}/>
-        }
+          {
+            idCheck ? <PasswordInfo setIdCheck={setIdCheck} form={form}/> :
+              <UserInfo setIdCheck={setIdCheck} form={form}/>
+          }
         </form>
       </Form>
     </div>
