@@ -46,7 +46,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
               <Input placeholder="홍길동" {...field} />
             </FormControl>
             {
-              errors.username && <WarningText>{errors.username.message}</WarningText>
+              errors.username?.message && <WarningText>{errors.username.message}</WarningText>
             }
           </FormItem>
         )}
@@ -61,7 +61,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
               <Input placeholder="hello@sparta-devcamp.com" {...field} />
             </FormControl>
             {
-              errors.email && <WarningText>{errors.email.message}</WarningText>
+              errors.email?.message && <WarningText>{errors.email.message}</WarningText>
             }
           </FormItem>
         )}
@@ -76,7 +76,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
               <Input placeholder="01000000000" {...field} />
             </FormControl>
             {
-              errors.phone && <WarningText>{errors.phone.message}</WarningText>
+              errors.phone?.message && <WarningText>{errors.phone.message}</WarningText>
             }
           </FormItem>
         )}
