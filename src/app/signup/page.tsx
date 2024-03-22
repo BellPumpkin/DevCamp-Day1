@@ -18,7 +18,7 @@ export type ResultType = {
   confirmPassword: string;
 }
 
-export default function signupPage() {
+export default function SignupPage() {
 
   const [idCheck, setIdCheck] = useState<boolean>(false);
 

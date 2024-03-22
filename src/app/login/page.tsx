@@ -14,7 +14,7 @@ const UserLoginSchema = z.object({
   userPassword: z.string()
 })
 
-export default function loginPage() {
+export default function LoginPage() {
 
   const form = useForm<z.infer<typeof UserLoginSchema>>({
     resolver: zodResolver(UserLoginSchema),
