@@ -1,5 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
-
+import { createSlice } from "@reduxjs/toolkit";
 
 type JoinState = {
   email: string,
@@ -9,6 +8,7 @@ type JoinState = {
   token: string,
 }
 
+// 초기값을 배열로 정의
 const initialState: JoinState[] = [
   {
     email: 'whdgh',
@@ -23,12 +23,11 @@ export const joinSlice = createSlice({
   name: "join",
   initialState,
   reducers: {
-    joinUser: (state) => {
-      console.log(state);
+    joinUser: (state, action) => {
+      state.push(action.payload);
     },
   }
-})
-
+});
 
 export const { joinUser } = joinSlice.actions;
 export default joinSlice.reducer;

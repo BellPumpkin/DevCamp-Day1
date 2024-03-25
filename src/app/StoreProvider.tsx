@@ -2,6 +2,7 @@
 import { useRef } from 'react'
 import { makeStore, AppStore } from '@/lib/store'
 import {Provider} from "react-redux";
+import {joinSlice} from "@/lib/features/join/joinSlice";
 
 export default function StoreProvider({
                                         children,
