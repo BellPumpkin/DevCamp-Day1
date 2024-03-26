@@ -1,4 +1,43 @@
+'use client'
+import {useAppSelector} from "@/lib/hooks";
+import Coupon from "@/components/Coupon";
+import {CouponType} from "@/lib/features/join/joinSlice";
+import {useEffect, useState} from "react";
+
+
 export default function PaymentPage() {
+
+  const curUser = useAppSelector((state) => state.join);
+  const { email, coupon }: {email: string, coupon: CouponType} = curUser[0]; // test
+
+  // 할인 적용된 가격
+  const [discountPrice, setDiscountPrice] = useState(0);
+
+  // 적용할 쿠폰 가격
+  const [couponPrice, setCouponPrice] = useState(0);
+
+  // 사용한 쿠폰을 지우기 위해 쿠폰 이름을 저장하는 변수 -> 결제 버튼을 누르면 coupon 객체에서 삭제
+  const [couponName, setCouponName] = useState("");
+
+
+  // 임시 데이터
+  const product = {
+    productName: '누르는 소리가 엄청큰 키보드',
+    productPrice: 18000,
+    productDeliveryPrice: 2500
+  }
+
+  const {productName, productPrice, productDeliveryPrice} = product
+
+  // 할인 금액, 배송비 적용된 총 가격
+  const [totalPrice, setTotalPrice] = useState(productPrice);
+
+  useEffect(() => {
+    console.log(coupon[couponName])
+    setTotalPrice(productPrice - (coupon[couponName] || 0) + productDeliveryPrice)
+  }, [couponName]);
+
+
   return (
     <div className="flex flex-col w-full h-screen bg-neutral-300">
       <div className="overflow-y-auto flex-grow p-10 pt-32">
@@ -14,8 +53,8 @@ export default function PaymentPage() {
                   img
                 </div>
                 <div className='ml-10'>
-                  <h1>상품 이름</h1>
-                  <h1>상품 가격</h1>
+                  <h1>제품명: {productName}</h1>
+                  <h1>가격: {productPrice}</h1>
                 </div>
               </div>
             </div>
@@ -32,8 +71,8 @@ export default function PaymentPage() {
             </div>
           </div>
           <div className="flex flex-row w-4/5 p-5 bg-pink-500">
-            <div className="flex flex-col">
-              <div className="flex flex-row bg-yellow-300 justify-between gap-2">
+            <div className="flex flex-col w-full">
+              <div className="flex flex-row bg-yellow-300 justify-between content-between gap-2">
                 <div className="flex flex-col w-4/5 bg-slate-500">
                   <h1 className="font-bold text-xl">배송정보</h1>
                   <h1>박종호</h1>
@@ -50,39 +89,23 @@ export default function PaymentPage() {
               </div>
             </div>
           </div>
-          <div className="w-4/5 bg-violet-50 p-5">
-            <div className="flex flex-col bg-fuchsia-600">
-              <h1 className="font-bold text-xl">쿠폰 포인트</h1>
-              <h1 className="bg-white">쿠폰</h1>
-              <div className="flex flex-row bg-amber-500">
-                <h1>쿠폰 input</h1>
-                <h1>쿠폰 적용</h1>
-              </div>
-              <h1 className="bg-white">쿠폰 번호</h1>
-              <div className="flex flex-row bg-amber-100">
-                <h1>쿠폰 번호 input</h1>
-                <h1>쿠폰 적용</h1>
-              </div>
-              <h1 className="bg-white">포인트</h1>
-              <div className="flex flex-row bg-amber-900">
-                <h1>쿠폰 번호 input</h1>
-                <h1>쿠폰 적용</h1>
-              </div>
-              <div className="bg-white">
-                <h1 className="text-sm">보유 포인트: 2,300</h1>
-                <h1 className="text-sm">5,000 포인트 이상 보유 및 10,000원 이상 구매시 사용 가능</h1>
-              </div>
-            </div>
-          </div>
+          <Coupon
+            coupon={coupon}
+            price={productPrice}
+            setDiscountPrice={setDiscountPrice}
+            setCouponPrice={setCouponPrice}
+            couponName={couponName}
+            setCouponName={setCouponName}
+          />
           <div className="w-4/5 bg-yellow-100 p-5">
             <h1 className="font-bold text-xl">최종 결제 금액</h1>
             <div className="flex flex-row justify-between">
               <h1>상품 가격</h1>
-              <h1>18,000원</h1>
+              <h1>{productPrice}원</h1>
             </div>
             <div className="flex flex-row justify-between">
               <h1>쿠폰 할인</h1>
-              <h1>-1,000원</h1>
+              <h1>-{couponName ? coupon[couponName] : 0}원</h1>
             </div>
             <div className="flex flex-row justify-between">
               <h1>포인트 사용</h1>
@@ -90,12 +113,12 @@ export default function PaymentPage() {
             </div>
             <div className="flex flex-row justify-between">
               <h1>배송비</h1>
-              <h1>+2,500원</h1>
+              <h1>+{productDeliveryPrice}원</h1>
             </div>
             <div className="border-t-2 border-neutral-500"/>
             <div className="flex flex-row justify-between">
               <h1>총 결제 금액</h1>
-              <h1>19,500원</h1>
+              <h1>{totalPrice}원</h1>
             </div>
             <div className="flex bg-slate-200">
               <h1>700 포인트 적립예정</h1>

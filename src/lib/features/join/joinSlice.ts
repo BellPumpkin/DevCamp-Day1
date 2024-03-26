@@ -1,21 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export type CouponType = {
+  [key: string]: number;
+};
+
 type JoinState = {
   email: string,
   password: string,
   phone: string,
   role: string,
   token: string,
+  coupon: CouponType
 }
 
-// 초기값을 배열로 정의
+// 초기 값을 배열로 정의
 const initialState: JoinState[] = [
   {
     email: 'whdgh',
     password: '1234',
     phone: '01012341234',
     role: 'admin',
-    token: '19941001'
+    token: '19941001',
+    coupon: {
+      'abcd': 5000,
+      'efgh': 2000
+    }
   },
 ];
 
