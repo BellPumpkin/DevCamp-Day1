@@ -10,7 +10,8 @@ type JoinState = {
   phone: string,
   role: string,
   token: string,
-  coupon: CouponType
+  coupon: CouponType,
+  point: number
 }
 
 // 초기 값을 배열로 정의
@@ -24,7 +25,8 @@ const initialState: JoinState[] = [
     coupon: {
       'abcd': 5000,
       'efgh': 2000
-    }
+    },
+    point: 12000
   },
 ];
 

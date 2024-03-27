@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 export default function PaymentPage() {
 
   const curUser = useAppSelector((state) => state.join);
-  const { email, coupon }: {email: string, coupon: CouponType} = curUser[0]; // test
+  const { email, coupon, point }: {email: string, coupon: CouponType, point: number} = curUser[0]; // test
 
   // 할인 적용된 가격
   const [discountPrice, setDiscountPrice] = useState(0);
@@ -16,9 +16,11 @@ export default function PaymentPage() {
   // 적용할 쿠폰 가격
   const [couponPrice, setCouponPrice] = useState(0);
 
+  // 적용할 포인트 가격
+  const [pointPrice, setPointPrice] = useState(0);
+
   // 사용한 쿠폰을 지우기 위해 쿠폰 이름을 저장하는 변수 -> 결제 버튼을 누르면 coupon 객체에서 삭제
   const [couponName, setCouponName] = useState("");
-
 
   // 임시 데이터
   const product = {
@@ -33,9 +35,9 @@ export default function PaymentPage() {
   const [totalPrice, setTotalPrice] = useState(productPrice);
 
   useEffect(() => {
-    console.log(coupon[couponName])
-    setTotalPrice(productPrice - (coupon[couponName] || 0) + productDeliveryPrice)
-  }, [couponName]);
+    console.log(pointPrice);
+    setTotalPrice(productPrice - (coupon[couponName] || 0) - (pointPrice || 0) + productDeliveryPrice)
+  }, [couponName, pointPrice]);
 
 
   return (
@@ -96,6 +98,8 @@ export default function PaymentPage() {
             setCouponPrice={setCouponPrice}
             couponName={couponName}
             setCouponName={setCouponName}
+            ownPoint={point}
+            setPointPrice={setPointPrice}
           />
           <div className="w-4/5 bg-yellow-100 p-5">
             <h1 className="font-bold text-xl">최종 결제 금액</h1>
@@ -109,7 +113,7 @@ export default function PaymentPage() {
             </div>
             <div className="flex flex-row justify-between">
               <h1>포인트 사용</h1>
-              <h1>-0원</h1>
+              <h1>-{pointPrice}원</h1>
             </div>
             <div className="flex flex-row justify-between">
               <h1>배송비</h1>
@@ -121,7 +125,7 @@ export default function PaymentPage() {
               <h1>{totalPrice}원</h1>
             </div>
             <div className="flex bg-slate-200">
-              <h1>700 포인트 적립예정</h1>
+              <h1>000 포인트 적립예정</h1>
             </div>
           </div>
           <div className="w-4/5 bg-violet-300 p-5">
