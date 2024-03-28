@@ -3,7 +3,6 @@ import {useAppSelector} from "@/lib/hooks";
 import Coupon from "@/components/Coupon";
 import {CouponType} from "@/lib/features/join/joinSlice";
 import {useEffect, useState} from "react";
-import Checkout from "@/components/asd";
 
 
 export default function PaymentPage() {
