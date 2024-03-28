@@ -3,12 +3,13 @@ import {useAppSelector} from "@/lib/hooks";
 import Coupon from "@/components/Coupon";
 import {CouponType} from "@/lib/features/join/joinSlice";
 import {useEffect, useState} from "react";
+import Checkout from "@/components/Checkout";
 
 
 export default function PaymentPage() {
 
   const curUser = useAppSelector((state) => state.join);
-  const { email, coupon, point }: {email: string, coupon: CouponType, point: number} = curUser[0]; // test
+  const { email, coupon, point, customerKey }: {email: string, coupon: CouponType, point: number, customerKey: string } = curUser[0]; // test
 
   // 할인 적용된 가격
   const [discountPrice, setDiscountPrice] = useState(0);
@@ -44,6 +45,8 @@ export default function PaymentPage() {
 
 
   return (
+    <>
+    { isPayment ? <Checkout totalPrice={totalPrice} customerKey={customerKey} /> :
     <div className="flex flex-col w-full h-screen bg-neutral-300">
       <div className="overflow-y-auto flex-grow p-10 pt-32">
         <div className="flex flex-col items-center gap-5">
@@ -143,12 +146,14 @@ export default function PaymentPage() {
           </div>
           <div className="w-4/5 bg-white p-5">
             <h1 className="font-bold text-xl">전체 동의</h1>
-            <button onClick={() => {
+            <button className='border-black border-4 bg-violet-300' onClick={() => {
               setIsPayment(true)
             }}>결제하기</button>
           </div>
         </div>
       </div>
     </div>
+    }
+    </>
   );
 }

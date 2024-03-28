@@ -13,9 +13,11 @@ import { useQuery } from "@tanstack/react-query";
 // TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요.
 // @docs https://docs.tosspayments.com/reference/using-api/api-keys
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
-const customerKey = nanoid();
+// const customerKey = nanoid();
 
-export default function Checkout() {
+export default function Checkout({totalPrice, customerKey}: {totalPrice: string, customerKey: string}) {
+  // console.log(totalPrice, customerKey)
+
   const { data: paymentWidget } = usePaymentWidget(clientKey, customerKey);
   // const { data: paymentWidget } = usePaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
   const paymentMethodsWidgetRef = useRef<ReturnType<
