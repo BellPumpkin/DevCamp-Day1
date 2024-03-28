@@ -3,6 +3,7 @@ import {useAppSelector} from "@/lib/hooks";
 import Coupon from "@/components/Coupon";
 import {CouponType} from "@/lib/features/join/joinSlice";
 import {useEffect, useState} from "react";
+import Checkout from "@/components/asd";
 
 
 export default function PaymentPage() {
@@ -21,6 +22,9 @@ export default function PaymentPage() {
 
   // 사용한 쿠폰을 지우기 위해 쿠폰 이름을 저장하는 변수 -> 결제 버튼을 누르면 coupon 객체에서 삭제
   const [couponName, setCouponName] = useState("");
+
+  // 결제 화면 띄우기
+  const [isPayment, setIsPayment] = useState(false);
 
   // 임시 데이터
   const product = {
@@ -140,7 +144,9 @@ export default function PaymentPage() {
           </div>
           <div className="w-4/5 bg-white p-5">
             <h1 className="font-bold text-xl">전체 동의</h1>
-            <button>결제하기</button>
+            <button onClick={() => {
+              setIsPayment(true)
+            }}>결제하기</button>
           </div>
         </div>
       </div>
