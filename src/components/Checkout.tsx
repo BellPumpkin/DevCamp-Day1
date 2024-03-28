@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 // const customerKey = nanoid();
 
-export default function Checkout({totalPrice, customerKey}: {totalPrice: string, customerKey: string}) {
+export default function Checkout({totalPrice, customerKey}: {totalPrice: number, customerKey: string}) {
   // console.log(totalPrice, customerKey)
 
   const { data: paymentWidget } = usePaymentWidget(clientKey, customerKey);
