@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = nanoid();
 
-export default function checkout() {
+export default function Checkout() {
   const { data: paymentWidget } = usePaymentWidget(clientKey, customerKey);
   // const { data: paymentWidget } = usePaymentWidget(clientKey, ANONYMOUS); // 비회원 결제
   const paymentMethodsWidgetRef = useRef<ReturnType<
