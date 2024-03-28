@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { nanoid } from "nanoid";
 
 export type CouponType = {
   [key: string]: number;
@@ -11,7 +12,8 @@ type JoinState = {
   role: string,
   token: string,
   coupon: CouponType,
-  point: number
+  point: number,
+  customerKey: string;
 }
 
 // 초기 값을 배열로 정의
@@ -26,7 +28,8 @@ const initialState: JoinState[] = [
       'abcd': 5000,
       'efgh': 2000
     },
-    point: 12000
+    point: 12000,
+    customerKey: nanoid()
   },
 ];
 

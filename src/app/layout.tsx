@@ -4,6 +4,7 @@ import "./globals.css";
 import {cn} from "@/lib/utils";
 import {ThemeProvider} from "@/components/Theme-provider";
 import StoreProvider from "@/app/StoreProvider";
+import QueryClientV2Provider from "@/app/QueryClientV2Provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
@@ -33,9 +35,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <StoreProvider>
-          {children}
-          </StoreProvider>
+          <QueryClientV2Provider>
+            <StoreProvider>
+            {children}
+            </StoreProvider>
+          </QueryClientV2Provider>
         </ThemeProvider>
       </body>
     </html>

@@ -16,7 +16,7 @@ interface Payment {
   orderId: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+const getPayment: GetServerSideProps = async (context) => {
   const {
     query: { paymentKey, orderId, amount },
   } = context;
@@ -63,13 +63,13 @@ export default function SuccessPage({ payment }: Props) {
   return (
     <main>
       <div className="result wrapper">
-        <div className="box_section">  
+        <div className="box_section">
           <h2 style={{padding: "20px 0px 10px 0px"}}>
-              <img
-                width="35px"
-                src="https://static.toss.im/3d-emojis/u1F389_apng.png"
-              />
-              결제 성공
+            <img
+              width="35px"
+              src="https://static.toss.im/3d-emojis/u1F389_apng.png"
+            />
+            결제 성공
           </h2>
           <p>paymentKey = {payment.paymentKey}</p>
           <p>orderId =  {payment.orderId}</p>
