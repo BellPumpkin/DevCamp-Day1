@@ -9,7 +9,7 @@ import Checkout from "@/components/Checkout";
 export default function PaymentPage() {
 
   const curUser = useAppSelector((state) => state.join);
-  const { email, coupon, point, customerKey }: {email: string, coupon: CouponType, point: number, customerKey: string } = curUser[0]; // test
+  const { email, phone, coupon, point, customerKey }: {email: string, phone: string, coupon: CouponType, point: number, customerKey: string } = curUser[0]; // test
 
   // 할인 적용된 가격
   const [discountPrice, setDiscountPrice] = useState(0);
@@ -28,9 +28,9 @@ export default function PaymentPage() {
 
   // 임시 데이터
   const product = {
-    productName: '누르는 소리가 엄청큰 키보드',
-    productPrice: 18000,
-    productDeliveryPrice: 2500
+    productName: '누르는 소리가 엄청 큰 키보드',
+    productPrice: 100,
+    productDeliveryPrice: 0
   }
 
   const {productName, productPrice, productDeliveryPrice} = product
@@ -46,7 +46,7 @@ export default function PaymentPage() {
 
   return (
     <>
-    { isPayment ? <Checkout totalPrice={totalPrice} customerKey={customerKey} /> :
+    { isPayment ? <Checkout totalPrice={totalPrice} customerKey={customerKey} customerEmail={email} customerMobilePhone={phone} orderName={productName} /> :
     <div className="flex flex-col w-full h-screen bg-neutral-300">
       <div className="overflow-y-auto flex-grow p-10 pt-32">
         <div className="flex flex-col items-center gap-5">

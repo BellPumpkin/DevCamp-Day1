@@ -12,10 +12,18 @@ import { useQuery } from "@tanstack/react-query";
 // TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
 // TODO: customerKey는 구매자와 1:1 관계로 무작위한 고유값을 생성하세요.
 // @docs https://docs.tosspayments.com/reference/using-api/api-keys
-const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+const clientKey = "test_ck_pP2YxJ4K87YzjpLnXB0zVRGZwXLO";
 // const customerKey = nanoid();
 
-export default function Checkout({totalPrice, customerKey}: {totalPrice: number, customerKey: string}) {
+type Props = {
+  totalPrice: number
+  customerKey: string
+  customerEmail: string
+  customerMobilePhone: string
+  orderName: string
+}
+
+export default function Checkout({totalPrice, customerKey, customerEmail, customerMobilePhone, orderName}: Props) {
   // console.log(totalPrice, customerKey)
 
   const { data: paymentWidget } = usePaymentWidget(clientKey, customerKey);
@@ -26,7 +34,7 @@ export default function Checkout({totalPrice, customerKey}: {totalPrice: number,
   const agreementsWidgetRef = useRef<ReturnType<
     PaymentWidgetInstance["renderAgreement"]
   > | null>(null);
-  const [price, setPrice] = useState(50_000);
+  const [price, setPrice] = useState(totalPrice);
 
   useEffect(() => {
     if (paymentWidget == null) {
@@ -99,10 +107,10 @@ export default function Checkout({totalPrice, customerKey}: {totalPrice: number,
                   // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
                   await paymentWidget?.requestPayment({
                     orderId: nanoid(),
-                    orderName: "토스 티셔츠 외 2건",
-                    customerName: "김토스",
-                    customerEmail: "customer123@gmail.com",
-                    customerMobilePhone: "01012341234",
+                    orderName: orderName,
+                    customerName: "박종호",
+                    customerEmail: customerEmail,
+                    customerMobilePhone: customerMobilePhone,
                     successUrl: `${window.location.origin}/success`,
                     failUrl: `${window.location.origin}/fail`,
                   });
