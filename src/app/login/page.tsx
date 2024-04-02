@@ -33,13 +33,13 @@ export default function LoginPage() {
   return (
     <div className='relative h-screen bg-amber-100 flex flex-col justify-center items-center'>
       <div className="absolute top-40">
-        <div className="flex justify-center items-center h-[100px] mb-10 border-4 rounded-md border-black bg-white">
+        <div className="flex justify-center items-center h-[100px] mb-10 border rounded-md border-black">
           <h1 className="text-5xl font-bold">로그인</h1>
         </div>
-        <div className='flex flex-col w-[500px] h-[380px] border border-neutral-300 bg-blue-300 rounded-md p-10'>
+        <div className='flex flex-col w-[500px] h-[380px] border border-black rounded-md p-10'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col flex-grow">
-              <div className="flex flex-col h-full rounded-md bg-fuchsia-600 justify-between p-5">
+              <div className="flex flex-col h-full rounded-md border border-black justify-between p-5">
                 <div className="flex flex-col gap-5 mt-3">
                   <FormField
                     control={form.control}
@@ -47,7 +47,7 @@ export default function LoginPage() {
                     render={({field}) => (
                       <FormItem className='flex flex-col gap-2'>
                         <FormControl>
-                          <Input className="h-[50px] hover:cursor-pointer" placeholder="아이디" autoComplete={"off"} {...field} />
+                          <Input className="h-[50px] border-black hover:cursor-pointer" placeholder="아이디" autoComplete={"off"} {...field} />
                         </FormControl>
                       </FormItem>
                     )}
@@ -58,7 +58,7 @@ export default function LoginPage() {
                     render={({field}) => (
                       <FormItem className='flex flex-col gap-2'>
                         <FormControl>
-                          <Input className="h-[50px] hover:cursor-pointer" placeholder="비밀번호" type="password"
+                          <Input className="h-[50px] border-black hover:cursor-pointer" placeholder="비밀번호" type="password"
                                  autoComplete="new-password" {...field} />
                         </FormControl>
                       </FormItem>
@@ -66,13 +66,13 @@ export default function LoginPage() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <Button className="bg-amber-500 h-[40px] text-md" type="submit">로그인</Button>
+                  <Button className="bg-white text-black border border-black h-[40px] text-md hover:text-white" type="submit">로그인</Button>
                 </div>
               </div>
             </form>
           </Form>
-          <div className={"flex h-[40px] justify-end items-center rounded-md bg-pink-500 mt-1 pr-6"}>
-            <Link className={`bg-amber-600 p-1 text-md rounded-md hover:text-white hover:bg-black`} href={"/signup"}>회원가입</Link>
+          <div className={"flex h-[40px] justify-end items-center rounded-md border border-black mt-1 pr-6"}>
+            <Link className={`p-1 text-md rounded-md border border-black hover:text-white hover:bg-black`} href={"/signup"}>회원가입</Link>
           </div>
         </div>
       </div>
