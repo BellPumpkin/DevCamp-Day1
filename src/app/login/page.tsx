@@ -8,6 +8,8 @@ import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import Link from "next/link";
+import {useAppSelector} from "@/lib/hooks";
+import {useRouter} from "next/navigation";
 
 const UserLoginSchema = z.object({
   userId: z.string(),
@@ -15,6 +17,9 @@ const UserLoginSchema = z.object({
 })
 
 export default function LoginPage() {
+
+  const join = useAppSelector((state) => state.join);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof UserLoginSchema>>({
     resolver: zodResolver(UserLoginSchema),
@@ -27,7 +32,13 @@ export default function LoginPage() {
   function onSubmit(values: z.infer<typeof UserLoginSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
+    const existUser = join.find((user) => (user.email === values.userId && user.password === values.userPassword))
+    if (!!existUser) {
+      router.push('/payment');
+    } else {
+      alert('아이디, 패스워드가 일치하지 않습니다.');
+      return
+    }
   }
 
   return (
