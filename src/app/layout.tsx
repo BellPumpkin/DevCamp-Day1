@@ -5,6 +5,7 @@ import {cn} from "@/lib/utils";
 import {ThemeProvider} from "@/components/Theme-provider";
 import StoreProvider from "@/app/StoreProvider";
 import QueryClientV2Provider from "@/app/QueryClientV2Provider";
+import {ModeToggle} from "@/components/ModeToggle";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -37,7 +38,12 @@ export default function RootLayout({
         >
           <QueryClientV2Provider>
             <StoreProvider>
-            {children}
+              <div className="flex h-screen justify-center items-center gap-10">
+                <div className='absolute top-9 right-9'>
+                  <ModeToggle/>
+                </div>
+                {children}
+              </div>
             </StoreProvider>
           </QueryClientV2Provider>
         </ThemeProvider>
