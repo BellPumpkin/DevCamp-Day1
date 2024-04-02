@@ -1,8 +1,7 @@
 "use client"
 
 import UserInfo from "@/components/UserInfo";
-import {useEffect, useState} from "react";
-import PasswordInfo from "@/components/PasswordInfo";
+import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {formSchema} from "@/validators/auth";
@@ -22,8 +21,6 @@ export type ResultType = {
 }
 
 export default function SignupPage() {
-
-  const [idCheck, setIdCheck] = useState<boolean>(false);
 
   const join = useAppSelector((state) => state.join);
   const dispatch = useAppDispatch();
@@ -45,15 +42,33 @@ export default function SignupPage() {
     console.log(join);
   }, [join]);
 
-
   function onSubmit(values: z.infer<typeof formSchema>) {
+
+    const existEmail = join.find((item) => (item.email === values.email));
+    if(!!existEmail) {
+      alert('이미 사용 중인 Email 입니다.');
+      return
+    }
+
+    form.trigger(["phone", "email", "username", "role"]);
+    const phoneState = form.getFieldState("phone");
+    const emailState = form.getFieldState("email");
+    const usernameState = form.getFieldState("username");
+    const roleState = form.getFieldState("role");
+
+    if (!phoneState.isDirty || phoneState.invalid) return;
+    if (!emailState.isDirty || emailState.invalid) return;
+    if (!usernameState.isDirty || usernameState.invalid) return;
+    if (!roleState.isDirty || roleState.invalid) return;
+
+
     if (values.password === values.confirmPassword) {
       alert(JSON.stringify(values, null, 4))
       dispatch(joinUser(values))
       router.push('/');
     }
     else {
-      alert("일치하지 않음");
+      alert("일치 하지 않음");
     }
   }
 
@@ -61,10 +76,7 @@ export default function SignupPage() {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
-          {
-            idCheck ? <PasswordInfo setIdCheck={setIdCheck} form={form}/> :
-              <UserInfo setIdCheck={setIdCheck} form={form}/>
-          }
+          <UserInfo form={form}/>
         </form>
       </Form>
     </div>

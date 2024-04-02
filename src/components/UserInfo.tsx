@@ -9,28 +9,10 @@ import {UseFormReturn} from "react-hook-form";
 import {inputType} from "@/validators/auth";
 
 type Props = {
-  setIdCheck: React.Dispatch<React.SetStateAction<boolean>>
   form:  UseFormReturn<inputType>
 }
 
-export default function UserInfo({setIdCheck, form}: Props) {
-
-  function onSubmit() {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    form.trigger(["phone", "email", "username", "role"]);
-    const phoneState = form.getFieldState("phone");
-    const emailState = form.getFieldState("email");
-    const usernameState = form.getFieldState("username");
-    const roleState = form.getFieldState("role");
-
-    if (!phoneState.isDirty || phoneState.invalid) return;
-    if (!emailState.isDirty || emailState.invalid) return;
-    if (!usernameState.isDirty || usernameState.invalid) return;
-    if (!roleState.isDirty || roleState.invalid) return;
-
-    setIdCheck(true)
-  }
+export default function UserInfo({form}: Props) {
 
   let errors = form.formState.errors;
 
@@ -43,7 +25,7 @@ export default function UserInfo({setIdCheck, form}: Props) {
           <FormItem className='flex flex-col gap-2'>
             <FormLabel>이름</FormLabel>
             <FormControl>
-              <Input placeholder="홍길동" {...field} />
+              <Input placeholder="홍길동" autoComplete={"username"} {...field} />
             </FormControl>
             {
               errors.username?.message && <WarningText>{errors.username.message}</WarningText>
@@ -106,7 +88,39 @@ export default function UserInfo({setIdCheck, form}: Props) {
           </FormItem>
         )}
       />
-      <Button className='w-20' type="button" onClick={onSubmit}>다음 단계로</Button>
+      <FormField
+        control={form.control}
+        name="password"
+        render={({field}) => (
+          <FormItem className='flex flex-col gap-2'>
+            <FormLabel>비밀번호</FormLabel>
+            <FormControl>
+              <Input type="password" autoComplete="new-password" {...field}/>
+            </FormControl>
+            {
+              errors.password?.message && <WarningText>{errors.password.message}</WarningText>
+            }
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="confirmPassword"
+        render={({field}) => (
+          <FormItem className='flex flex-col gap-2'>
+            <FormLabel>비밀번호 확인</FormLabel>
+            <FormControl>
+              <Input type="password" autoComplete="new-password" {...field} />
+            </FormControl>
+            {
+              errors.confirmPassword?.message && <WarningText>{errors.confirmPassword.message}</WarningText>
+            }
+          </FormItem>
+        )}
+      />
+      <div className='flex gap-6'>
+        <Button type="submit">계정 동록하기</Button>
+      </div>
     </>
   )
 }
